@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    private static final int CREATE_ACCOUNT = 1;
     public static final String TAG = "DesDebug";
     public final static String STARTUP_MESSAGE = "new.deschulz.login1.STARTUPMSG";
 
@@ -68,6 +69,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         startActivity(intent);
 
     }
+
+    /**
+     * This creates the create account activity and gets ready to receive
+     * a callback from the activity when the login has been successfully
+     * created.
+     */
+    private void goToCreateLoginActivity(String loginid) {
+        Log.i(TAG,"goToCreateLoginActivity");
+        Intent userinfo = new Intent(this,CreateLoginActivity.class);
+        startActivityForResult(userinfo,CREATE_ACCOUNT);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resCode, Intent data) {
+        Log.i(TAG,"onActivityResult: " + resCode);
+    }
+
+
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -206,9 +227,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            // Only do this if we want to attempt a login!  Otherwise
+            // start the create user activity
+            if (TextUtils.isEmpty(password)) {
+                Log.i(TAG, "Need to create an account");
+                goToCreateLoginActivity(email);
+            } else {
+                showProgress(true);
+                mAuthTask = new UserLoginTask(email, password);
+                mAuthTask.execute((Void) null);
+            }
         }
         Log.i(TAG,"attemptLogin Returns");
     }
@@ -355,6 +383,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (mPassword != null && mPassword.isEmpty()) {
                 // register a new account here
+                goToCreateLoginActivity(mEmail);
                 Log.i(TAG,"New Account.  Register it.");
                 mLoginStat = "Successfully created a new user user account";
                 return true;
