@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:gravity="center_horizontal"
@@ -25,14 +24,50 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/newpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/new_password"
 
             android:inputType="textPassword"
             android:maxLines="1" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <EditText
+            android:id="@+id/confirmpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/confirmpassword"
+
+            android:inputType="textPassword"
+            android:maxLines="1" />
+</android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+<EditText
+            android:id="@+id/passwordhint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_hint"
+
+            android:inputType="textPassword"
+            android:maxLines="1" />
 
     </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:text="@string/create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="submitLogin"
+        android:id="@+id/createlogin" />
+
 
 </LinearLayout>

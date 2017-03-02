@@ -15,4 +15,8 @@
     </string>
     <string name="loginsuccess">You have successfully logged in or created an account</string>
     <string name="new_password">Enter a new password</string>
+    <string name="create">Create Login</string>
+    <string name="uidgreet">"Welcome %1$s.  Please enter a password"</string>
+    <string name="confirmpassword">Confirm Password</string>
+    <string name="password_hint">Password Hint</string>
 </resources>
