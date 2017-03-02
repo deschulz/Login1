@@ -14,4 +14,5 @@
         completions."
     </string>
     <string name="loginsuccess">You have successfully logged in or created an account</string>
+    <string name="new_password">Enter a new password</string>
 </resources>

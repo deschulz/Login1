@@ -34,6 +34,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadFactory;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -46,9 +47,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-    private static final int CREATE_ACCOUNT = 1;
+    private static final int CREATE_ACCOUNT = 17;
     public static final String TAG = "DesDebug";
     public final static String STARTUP_MESSAGE = "new.deschulz.login1.STARTUPMSG";
+    public final static String EMAILID = "EmailID";
 
     private FeedReaderDbHelper mDbHelper = new FeedReaderDbHelper(this);
 
@@ -78,13 +80,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void goToCreateLoginActivity(String loginid) {
         Log.i(TAG,"goToCreateLoginActivity");
         Intent userinfo = new Intent(this,CreateLoginActivity.class);
+        userinfo.putExtra(EMAILID,loginid);
         startActivityForResult(userinfo,CREATE_ACCOUNT);
 
     }
 
     @Override
-    protected void onActivityResult(int requestCode,int resCode, Intent data) {
-        Log.i(TAG,"onActivityResult: " + resCode);
+    protected void onActivityResult(int requestCode, int resCode, Intent data) {
+        // the requestCode is the second argument from startActivityForResult -- CREATE_ACCOUNT
+        Log.i(TAG,"onActivityResult: " + requestCode + " " + resCode);
+        goToApplication("OK");
+        Log.i(TAG,"Launching the Application and calling finish()");
+        finish();
+
     }
 
 
@@ -403,7 +411,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 goToApplication(mLoginStat);
-                //finish();
+                finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
